@@ -15,7 +15,7 @@ pipeline {
                 echo 'Cloning repository...'
                 git branch: 'main',
                     credentialsId: 'github-creds',
-                    url: 'https://github.com/archon16/Trend.git'
+                    url: 'https://github.com/archon16/Trendstore.git'
             }
         }
 

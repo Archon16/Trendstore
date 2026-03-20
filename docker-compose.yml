@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  trend-app:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    image: trend-app:latest
+    container_name: trend-app
+    ports:
+      - 3000:3000
+    restart: always

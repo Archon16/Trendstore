@@ -10,16 +10,6 @@ pipeline {
 
     stages {
 
-        stage('Configure kubectl') {
-            steps {
-                echo 'Configuring kubectl for EKS...'
-                sh '''
-                    aws eks update-kubeconfig --name trend-cluster --region us-east-1
-                    kubectl get nodes
-                '''
-            }
-        }
-
         stage('Checkout') {
             steps {
                 echo 'Cloning repository...'

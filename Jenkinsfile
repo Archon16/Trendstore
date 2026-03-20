@@ -10,6 +10,32 @@ pipeline {
 
     stages {
 
+        stage('Install kubectl') {
+            steps {
+                echo 'Installing kubectl...'
+                sh '''
+                    if ! command -v kubectl &> /dev/null; then
+                        curl -LO "https://dl.k8s.io/release/v1.29.0/bin/linux/amd64/kubectl"
+                        chmod +x kubectl
+                        sudo mv kubectl /usr/local/bin/
+                    else
+                        echo "kubectl already installed"
+                    fi
+                    kubectl version --client
+                '''
+            }
+        }
+
+        stage('Configure kubectl') {
+            steps {
+                echo 'Configuring kubectl for EKS...'
+                sh '''
+                    aws eks update-kubeconfig --name trend-cluster --region us-east-1
+                    kubectl get nodes
+                '''
+            }
+        }
+
         stage('Checkout') {
             steps {
                 echo 'Cloning repository...'
